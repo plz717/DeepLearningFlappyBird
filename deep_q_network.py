@@ -70,16 +70,16 @@ def createNetwork():
 
     h_fc1 = tf.nn.relu(tf.matmul(h_conv3_flat, W_fc1) + b_fc1)
 
-    # readout layer
+    # readout layer:Q-value of each kind of action
     readout = tf.matmul(h_fc1, W_fc2) + b_fc2
-
     return s, readout, h_fc1
 
 def trainNetwork(s, readout, h_fc1, sess):
     # define the cost function
-    a = tf.placeholder("float", [None, ACTIONS])
+    a = tf.placeholder("float", [None, ACTIONS])  #one hot vector
     y = tf.placeholder("float", [None])
     readout_action = tf.reduce_sum(tf.mul(readout, a), reduction_indices=1)
+    #as a is an one hot vector,tf.mul(readout,a) shows the Q value of every action
     cost = tf.reduce_mean(tf.square(y - readout_action))
     train_step = tf.train.AdamOptimizer(1e-6).minimize(cost)
 
