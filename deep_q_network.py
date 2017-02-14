@@ -140,8 +140,8 @@ def trainNetwork(s, readout, h_fc1, sess):
         ret, x_t1 = cv2.threshold(x_t1, 1, 255, cv2.THRESH_BINARY)
         x_t1 = np.reshape(x_t1, (80, 80, 1))
         #s_t1 = np.append(x_t1, s_t[:,:,1:], axis = 2)
-        s_t1 = np.append(x_t1, s_t[:, :, :3], axis=2)
-
+        # s_t[:,:,:3].shape:80,80,3  this operation update the 4 input images,ss_t1[0]:x_t1,s_t1[1:3]:s_t[:,:,:3]
+        s_t1 = np.append(x_t1, s_t[:, :, :3], axis=2)  #80,80,4
         # store the transition in D
         D.append((s_t, a_t, r_t, s_t1, terminal))
         if len(D) > REPLAY_MEMORY:
