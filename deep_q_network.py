@@ -125,7 +125,7 @@ def trainNetwork(s, readout, h_fc1, sess):
                 action_index = random.randrange(ACTIONS)
                 a_t[random.randrange(ACTIONS)] = 1
             else:
-                action_index = np.argmax(readout_t)
+                action_index = np.argmax(readout_t)  #return the index of the maximum among ACTIONS Q-values
                 a_t[action_index] = 1
         else:
             a_t[0] = 1 # do nothing
