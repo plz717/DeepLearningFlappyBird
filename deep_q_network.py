@@ -101,8 +101,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     #the reward function can be modified in game/wrapped_flappy_bird.py def frame_step(self, input_actions)
     x_t = cv2.cvtColor(cv2.resize(x_t, (80, 80)), cv2.COLOR_BGR2GRAY)
     ret, x_t = cv2.threshold(x_t,1,255,cv2.THRESH_BINARY)
-    s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)
-
+    s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)  #to infer velocity of the objtct
     # saving and loading networks
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
